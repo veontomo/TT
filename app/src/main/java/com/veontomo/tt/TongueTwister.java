@@ -1,3 +1,5 @@
+package com.veontomo.tt;
+
 import android.media.ToneGenerator;
 
 /**
