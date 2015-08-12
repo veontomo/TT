@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">Scioglilingua</string>
     <string name="action_settings">Impostazioni</string>
+    <string name="add_tt_title">Nuova scioglilingua</string>
+    <string name="cancel">Cancella</string>
+    <string name="save">Salva</string>
+    <string name="title_activity_add_tt">Aggiungi</string>
 </resources>

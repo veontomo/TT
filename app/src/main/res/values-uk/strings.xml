@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">Скоромовка</string>
     <string name="action_settings">Налаштування</string>
+    <string name="title_activity_add_tt">Додати</string>
+    <string name="cancel">Скасувати</string>
+    <string name="save">Додати</string>
+    <string name="add_tt_title">Нова скоромовка</string>
 </resources>

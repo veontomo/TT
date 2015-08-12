@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Tongue Twister</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_add_tt">Add new</string>
+
+    <string name="add_tt_title">New tongue-twister</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>

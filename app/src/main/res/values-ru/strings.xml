@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">Скороговорка</string>
     <string name="action_settings">Настройки</string>
+    <string name="title_activity_add_tt">Добавить</string>
+    <string name="add_tt_title">Новая скороговорка</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Добавить</string>
 </resources>
