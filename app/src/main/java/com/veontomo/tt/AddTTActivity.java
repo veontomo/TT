@@ -26,11 +26,16 @@ public class AddTTActivity extends AppCompatActivity {
     /**
      * Content of the edit text field.
      *
-     * This variable receives string content of {@link #mText mText} when the activity
+     * This variable receives string content of {@link #mEditText mEditText} when the activity
      * gets paused.
      */
     private String mText;
 
+    /**
+     * Cursor position in the edit text field.
+     *
+     * The value gets updated when the activity gets paused.
+     */
     private int mPos;
     private EditText mEditText;
     /**
@@ -46,12 +51,10 @@ public class AddTTActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tt);
-        Log.i(config.TAG, "on create");
     }
 
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.i(config.TAG, "on restore");
         super.onRestoreInstanceState(savedInstanceState);
 
         // Restore state members from saved instance
@@ -61,7 +64,6 @@ public class AddTTActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        Log.i(config.TAG, "on resume");
         this.mEditText = (EditText) findViewById(R.id.add_tt_edit);
         // restoring string content of the edit text
         if (this.mText != null) {
@@ -77,19 +79,19 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(config.TAG, "click save");
+                Log.i(config.TAG, "click save: " + mEditText.getEditableText().toString());
             }
         });
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(config.TAG, "click cancel");
+                finish();
             }
         });
     }
 
     public void onPause() {
-        Log.i(config.TAG, "on pause");
         this.mBtnCancel.setOnClickListener(null);
         this.mBtnSave.setOnClickListener(null);
         this.mText = this.mEditText.getEditableText().toString();
@@ -101,23 +103,15 @@ public class AddTTActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.i(config.TAG, "on save instance");
         savedInstanceState.putString(textToken, this.mText);
         savedInstanceState.putInt(positionToken, this.mPos);
         super.onSaveInstanceState(savedInstanceState);
     }
 
     public void onStop() {
-        Log.i(config.TAG, "on stop");
         this.mText = null;
         super.onStop();
     }
-
-    public void onDestroy() {
-        Log.i(config.TAG, "on destroy. Do not add anything here, because it should be deleted.");
-        super.onDestroy();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
