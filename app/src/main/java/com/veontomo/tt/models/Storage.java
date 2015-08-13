@@ -54,12 +54,12 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Save tongue-twister in db.
-     * @param tt
+     * @param text tongue-twister text
      * @return the row ID of the newly inserted row, or -1 if an error occurred
      */
-    public long save(TongueTwister tt) {
+    public long saveTT(String text) {
         ContentValues values = new ContentValues();
-        values.put(TTEntry.COLUMN_TEXT, tt.text);
+        values.put(TTEntry.COLUMN_TEXT, text);
         SQLiteDatabase db = getWritableDatabase();
         long recordId = db.insert(TTEntry.TABLE_NAME, null, values);
         db.close();

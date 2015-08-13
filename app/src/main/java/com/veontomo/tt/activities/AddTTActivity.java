@@ -14,6 +14,7 @@ import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
 import com.veontomo.tt.models.Storage;
 import com.veontomo.tt.models.TongueTwister;
+import com.veontomo.tt.tasks.SaveTongTwisterTask;
 
 public class AddTTActivity extends AppCompatActivity {
 
@@ -85,11 +86,8 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(config.TAG, "click save: " + mEditText.getEditableText().toString());
-                TongueTwister tt = new TongueTwister(mEditText.getEditableText().toString());
-                Storage storage = new Storage(getApplicationContext());
-                long id = storage.save(tt);
-                Toast.makeText(getApplicationContext(), "row id = " + id, Toast.LENGTH_SHORT).show();
+                SaveTongTwisterTask task = new SaveTongTwisterTask(getApplicationContext());
+                task.execute(mEditText.getEditableText().toString());
             }
         });
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {
