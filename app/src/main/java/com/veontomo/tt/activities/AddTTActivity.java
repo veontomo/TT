@@ -1,4 +1,4 @@
-package com.veontomo.tt;
+package com.veontomo.tt.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.veontomo.tt.Config;
+import com.veontomo.tt.R;
+import com.veontomo.tt.models.Storage;
+import com.veontomo.tt.models.TongueTwister;
 
 public class AddTTActivity extends AppCompatActivity {
 
@@ -80,6 +86,10 @@ public class AddTTActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(config.TAG, "click save: " + mEditText.getEditableText().toString());
+                TongueTwister tt = new TongueTwister(mEditText.getEditableText().toString());
+                Storage storage = new Storage(getApplicationContext());
+                long id = storage.save(tt);
+                Toast.makeText(getApplicationContext(), "row id = " + id, Toast.LENGTH_SHORT).show();
             }
         });
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {

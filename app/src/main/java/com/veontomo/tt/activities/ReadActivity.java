@@ -1,4 +1,4 @@
-package com.veontomo.tt;
+package com.veontomo.tt.activities;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.veontomo.tt.R;
 
 import java.io.IOException;
 

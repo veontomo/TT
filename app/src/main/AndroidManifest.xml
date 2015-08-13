@@ -11,11 +11,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ReadActivity"
+            android:name=".activities.ReadActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".AddTTActivity"
+            android:name=".activities.AddTTActivity"
             android:label="@string/title_activity_add_tt" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

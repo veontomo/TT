@@ -1,4 +1,4 @@
-package com.veontomo.tt;
+package com.veontomo.tt.models;
 
 import android.media.ToneGenerator;
 
@@ -23,6 +23,11 @@ public class TongueTwister {
 
     public TongueTwister(short id, String text){
         this.id = id;
+        this.text = text;
+    }
+
+    public TongueTwister(String text){
+        this.id = -1;
         this.text = text;
     }
 
