@@ -3,19 +3,17 @@ package com.veontomo.tt.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.veontomo.tt.Config;
 import com.veontomo.tt.models.Storage;
 
 /**
  * Saves tongue twister in a separate thread.
  */
-public class SaveTongTwisterTask extends AsyncTask<String, Void, Void> {
+public class SaveTongueTwisterTask extends AsyncTask<String, Void, Void> {
     private Context mContext;
 
-    public SaveTongTwisterTask(Context cntx) {
-        this.mContext = cntx;
+    public SaveTongueTwisterTask(Context context) {
+        this.mContext = context;
     }
 
     @Override

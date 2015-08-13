@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Tongue Twister</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_add_tt">Add new</string>
-
+    <string name="title_activity_add_tt">Add </string>
     <string name="add_tt_title">New tongue-twister</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="title_activity_show_all_tt">ShowAllTTActivity</string>
+    <string name="title_activity_show_all_tt">All tongue-twisters</string>
 
-    <string name="hello_world">Hello world!</string>
 </resources>

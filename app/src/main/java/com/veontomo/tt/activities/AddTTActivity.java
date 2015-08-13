@@ -8,13 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
-import com.veontomo.tt.models.Storage;
-import com.veontomo.tt.models.TongueTwister;
-import com.veontomo.tt.tasks.SaveTongTwisterTask;
+import com.veontomo.tt.tasks.SaveTongueTwisterTask;
 
 public class AddTTActivity extends AppCompatActivity {
 
@@ -86,7 +83,7 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveTongTwisterTask task = new SaveTongTwisterTask(getApplicationContext());
+                SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext());
                 task.execute(mEditText.getEditableText().toString());
             }
         });

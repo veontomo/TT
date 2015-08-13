@@ -6,4 +6,5 @@
     <string name="cancel">Cancella</string>
     <string name="save">Salva</string>
     <string name="title_activity_add_tt">Aggiungi</string>
+    <string name="title_activity_show_all_tt">Tutti gli scioglilingua</string>
 </resources>

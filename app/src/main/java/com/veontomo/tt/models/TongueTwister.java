@@ -1,6 +1,5 @@
 package com.veontomo.tt.models;
 
-import android.media.ToneGenerator;
 
 /**
  * Tongue twister class.
