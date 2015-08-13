@@ -6,4 +6,7 @@
     <string name="add_tt_title">New tongue-twister</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="title_activity_show_all_tt">ShowAllTTActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
