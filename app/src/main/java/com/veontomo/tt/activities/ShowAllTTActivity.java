@@ -8,6 +8,10 @@ import android.widget.ListView;
 
 import com.veontomo.tt.R;
 import com.veontomo.tt.TTAdapter;
+import com.veontomo.tt.models.TongueTwister;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowAllTTActivity extends AppCompatActivity {
     /**
@@ -25,7 +29,11 @@ public class ShowAllTTActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         this.mListView = (ListView) findViewById(R.id.listview);
-        this.mListView.setAdapter(new TTAdapter());
+        List<TongueTwister> list = new ArrayList<>();
+        list.add(new TongueTwister("33 contro 33"));
+        list.add(new TongueTwister("xxxxx"));
+        list.add(new TongueTwister("qqqqqq"));
+        this.mListView.setAdapter(new TTAdapter(getApplicationContext(), list));
     }
 
     @Override
