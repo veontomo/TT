@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.veontomo.tt.models.TongueTwister;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class TTAdapter extends BaseAdapter {
     /**
      * items that this adapter should display
      */
-    private final List<TongueTwister> mItems;
+    private List<TongueTwister> mItems;
 
     private final Context mContext;
 
@@ -29,9 +30,10 @@ public class TTAdapter extends BaseAdapter {
         this.mItems = items;
     }
 
+
     @Override
     public int getCount() {
-        return this.mItems.size();
+        return this.mItems == null ? 0 : this.mItems.size();
     }
 
     @Override
@@ -42,6 +44,10 @@ public class TTAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public void setItems(List<TongueTwister> items){
+        this.mItems = items;
     }
 
     @Override

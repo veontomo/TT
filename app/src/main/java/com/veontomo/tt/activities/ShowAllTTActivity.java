@@ -4,11 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.veontomo.tt.R;
 import com.veontomo.tt.TTAdapter;
 import com.veontomo.tt.models.TongueTwister;
+import com.veontomo.tt.tasks.LoadAllTongueTwisterTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,10 @@ public class ShowAllTTActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         this.mListView = (ListView) findViewById(R.id.listview);
-        List<TongueTwister> list = new ArrayList<>();
-        list.add(new TongueTwister("33 contro 33"));
-        list.add(new TongueTwister("xxxxx"));
-        list.add(new TongueTwister("qqqqqq"));
-        this.mListView.setAdapter(new TTAdapter(getApplicationContext(), list));
+        TTAdapter adapter = new TTAdapter(getApplicationContext(), null);
+        this.mListView.setAdapter(adapter);
+        LoadAllTongueTwisterTask task = new LoadAllTongueTwisterTask(adapter);
+        task.execute();
     }
 
     @Override
