@@ -58,14 +58,19 @@ public class TTAdapter extends BaseAdapter {
             row = inflater.inflate(R.layout.tt, parent, false);
             ViewHolder holder = new ViewHolder();
             holder.textView = (TextView) row.findViewById(R.id.tt_text);
+            holder.idView = (TextView) row.findViewById(R.id.tt_id);
             row.setTag(holder);
         }
+        TongueTwister tt = this.getItem(position);
         ViewHolder holder = (ViewHolder) row.getTag();
-        holder.textView.setText(this.getItem(position).text);
+        holder.textView.setText(tt.text);
+        holder.idView.setText(String.valueOf(tt.id));
+
         return row;
     }
 
     private static final class ViewHolder {
         public TextView textView;
+        public TextView idView;
     }
 }

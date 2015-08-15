@@ -45,17 +45,13 @@ public class ShowAllTTActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //here you can use the position to determine what checkbox to check
                 //this assumes that you have an array of your checkboxes as well. called checkbox
-                TextView tv = (TextView) view.findViewById(R.id.tt_text);
-                if (tv == null) {
-                    Log.i((new Config()).TAG, "tv is null");
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), ShowSingleTTActivity.class);
-                    Config config = new Config();
-                    intent.putExtra(config.TT_TEXT_KEY, tv.getText().toString());
-                    intent.putExtra(config.TT_ID_KEY, position);
-                    startActivity(intent);
-                }
-
+                TextView tvText = (TextView) view.findViewById(R.id.tt_text);
+                TextView tvId = (TextView) view.findViewById(R.id.tt_id);
+                Intent intent = new Intent(getApplicationContext(), ShowSingleTTActivity.class);
+                Config config = new Config();
+                intent.putExtra(config.TT_TEXT_KEY, tvText.getText().toString());
+                intent.putExtra(config.TT_ID_KEY, (int) Integer.valueOf(tvId.getText().toString()));
+                startActivity(intent);
             }
         });
     }
