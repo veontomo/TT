@@ -27,6 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ShowSingleTTActivity"
+            android:label="@string/title_activity_show_single_tt" >
+        </activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
@@ -30,7 +31,7 @@ public class AddTTActivity extends AppCompatActivity {
 
     /**
      * Content of the edit text field.
-     *
+     * <p/>
      * This variable receives string content of {@link #mEditText mEditText} when the activity
      * gets paused.
      */
@@ -38,7 +39,7 @@ public class AddTTActivity extends AppCompatActivity {
 
     /**
      * Cursor position in the edit text field.
-     *
+     * <p/>
      * The value gets updated when the activity gets paused.
      */
     private int mPos;
@@ -76,7 +77,7 @@ public class AddTTActivity extends AppCompatActivity {
             this.mText = null;
         }
         // placing the cursor at the correct position
-        if (this.mPos > 0){
+        if (this.mPos > 0) {
             this.mEditText.setSelection(this.mPos);
         }
         this.mBtnCancel = (Button) findViewById(R.id.btnCancel);
@@ -84,9 +85,14 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext());
-                task.execute(mEditText.getEditableText().toString());
-                finish();
+                String input = mEditText.getEditableText().toString();
+                if (input != null && !input.isEmpty()) {
+                    SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext());
+                    task.execute(input);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "not valid", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {

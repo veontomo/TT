@@ -8,4 +8,6 @@
     <string name="save">Добавить</string>
     <string name="title_activity_show_all_tt">Скороговорки</string>
     <string name="show_all">Все скороговорки</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>
