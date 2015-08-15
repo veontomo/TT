@@ -2,9 +2,13 @@ package com.veontomo.tt.models;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -42,6 +46,8 @@ public class Storage extends SQLiteOpenHelper {
                 TTEntry.TABLE_NAME + " (" +
                 TTEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TTEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
+        public static final String SELECT_ALL = "SELECT " + TTEntry._ID
+                + ", " + TTEntry.COLUMN_TEXT  + " FROM " + TTEntry.TABLE_NAME + ";";
     }
 
     @Override
@@ -65,6 +71,23 @@ public class Storage extends SQLiteOpenHelper {
         return recordId;
     }
 
+    public List<TongueTwister> retrieveAllTT() {
+        List<TongueTwister> all = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(TT.SELECT_ALL, null);
+        int colText = cursor.getColumnIndex(TTEntry.COLUMN_TEXT);
+        int colId = cursor.getColumnIndex(TTEntry._ID);
+        if (cursor.moveToFirst()) {
+            TongueTwister tt;
+            do {
+                tt = new TongueTwister(cursor.getShort(colId), cursor.getString(colText));
+                all.add(tt);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return all;
+    }
 
 
 

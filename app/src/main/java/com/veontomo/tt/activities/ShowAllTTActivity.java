@@ -1,5 +1,6 @@
 package com.veontomo.tt.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,7 +34,7 @@ public class ShowAllTTActivity extends AppCompatActivity {
         this.mListView = (ListView) findViewById(R.id.listview);
         TTAdapter adapter = new TTAdapter(getApplicationContext(), null);
         this.mListView.setAdapter(adapter);
-        LoadAllTongueTwisterTask task = new LoadAllTongueTwisterTask(adapter);
+        LoadAllTongueTwisterTask task = new LoadAllTongueTwisterTask(adapter, getApplicationContext());
         task.execute();
     }
 
@@ -60,7 +61,13 @@ public class ShowAllTTActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.settings) {
+            return true;
+        }
+
+        if (id == R.id.add_tt) {
+            Intent intent = new Intent(getApplicationContext(), AddTTActivity.class);
+            startActivity(intent);
             return true;
         }
 

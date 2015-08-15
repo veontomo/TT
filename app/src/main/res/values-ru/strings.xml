@@ -7,4 +7,5 @@
     <string name="cancel">Отмена</string>
     <string name="save">Добавить</string>
     <string name="title_activity_show_all_tt">Скороговорки</string>
+    <string name="show_all">Все скороговорки</string>
 </resources>

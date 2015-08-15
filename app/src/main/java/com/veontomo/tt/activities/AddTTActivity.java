@@ -1,5 +1,6 @@
 package com.veontomo.tt.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,6 +86,7 @@ public class AddTTActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext());
                 task.execute(mEditText.getEditableText().toString());
+                finish();
             }
         });
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +135,12 @@ public class AddTTActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.settings) {
+            return true;
+        }
+        if (id == R.id.show_all) {
+            Intent intent = new Intent(getApplicationContext(), ShowAllTTActivity.class);
+            startActivity(intent);
             return true;
         }
 
