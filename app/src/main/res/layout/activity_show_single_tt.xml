@@ -11,31 +11,32 @@
     <include
         android:id="@+id/tt_layout"
         layout="@layout/tt"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ImageButton
+        android:id="@+id/imgRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tt_layout"
-        android:id="@+id/imgMic"
         android:src="@drawable/ic_mic_black_24dp" />
 
     <ImageButton
         android:id="@+id/imgPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imgMic"
-        android:layout_toEndOf="@id/imgMic"
-        android:layout_alignTop="@id/imgMic"
+        android:layout_alignTop="@id/imgRecord"
+        android:layout_toEndOf="@id/imgRecord"
+        android:layout_toRightOf="@id/imgRecord"
         android:src="@drawable/ic_play_arrow_black_24dp" />
 
     <ImageButton
+        android:id="@+id/imgStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imgPlay"
-        android:layout_toEndOf="@id/imgPlay"
         android:layout_alignTop="@id/imgPlay"
+        android:layout_toEndOf="@id/imgPlay"
+        android:layout_toRightOf="@id/imgPlay"
         android:src="@drawable/ic_stop_black_24dp" />
 
 </RelativeLayout>

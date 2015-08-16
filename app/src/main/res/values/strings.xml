@@ -8,8 +8,6 @@
     <string name="title_activity_show_all_tt">All tongue-twisters</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
-    <string name="title_activity_show_single_tt">ShowSingleTTActivity</string>
-
-    <string name="hello_world">Hello world!</string>
-
+    <string name="title_activity_show_single_tt">Record</string>
+    <string name="show_all">All tongue-twisters</string>
 </resources>
