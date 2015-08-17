@@ -49,9 +49,8 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_single_tt);
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            Config config = new Config();
-            this.mId = b.getInt(config.TT_ID_KEY, -1);
-            this.mText = b.getString(config.TT_TEXT_KEY);
+            this.mId = b.getInt(Config.TT_ID_KEY, -1);
+            this.mText = b.getString(Config.TT_TEXT_KEY);
         }
     }
 
@@ -180,13 +179,6 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Checks if external storage is available for read and write
-     */
-    public boolean isExternalStorageWritable() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
 }
