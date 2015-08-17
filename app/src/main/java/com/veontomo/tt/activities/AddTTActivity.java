@@ -17,8 +17,6 @@ import com.veontomo.tt.tasks.SaveTongueTwisterTask;
 
 public class AddTTActivity extends AppCompatActivity {
 
-    private final Config config = new Config();
-
     /**
      * token name with which {@link #mText mText} is to be saved in the Bundle
      */
@@ -98,7 +96,7 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(config.TAG, "click cancel");
+                Log.i(Config.TAG, "click cancel");
                 finish();
             }
         });

@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class ShowSingleTTActivity extends AppCompatActivity {
 
@@ -35,6 +37,11 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     private MediaRecorder mAudioRecorder;
 
     private String mOutputFile;
+
+    /**
+     * Name of the directory in which tongue-twister audio records are to be stored
+     */
+    private String mDirName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +71,17 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         mAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mOutputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
-        mAudioRecorder.setOutputFile(mOutputFile);
+        this.mDirName = createDir(Config.DIR_NAME + "/" + String.valueOf(this.mId));
+        if (this.mDirName == null) {
+            return;
+        }
 
         mRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mOutputFile = mDirName + "/" + (new Date()).getTime() + ".3gp";
+                mAudioRecorder.setOutputFile(mOutputFile);
+
                 try {
                     mAudioRecorder.prepare();
                     mAudioRecorder.start();
@@ -115,11 +127,25 @@ public class ShowSingleTTActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 m.start();
-                Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    /**
+     * Creates (if it does not exist) a directory with given name in the external storage and
+     * returns absolute path to it.
+     *
+     * @param dir
+     * @return absolute path to the directory
+     */
+    private String createDir(String dir) {
+        File f = new File(Environment.getExternalStorageDirectory(),
+                dir);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        return f.getAbsolutePath();
     }
 
     @Override
@@ -155,4 +181,12 @@ public class ShowSingleTTActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Checks if external storage is available for read and write
+     */
+    public boolean isExternalStorageWritable() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
 }

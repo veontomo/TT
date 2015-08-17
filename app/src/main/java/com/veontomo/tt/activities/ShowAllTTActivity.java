@@ -48,9 +48,8 @@ public class ShowAllTTActivity extends AppCompatActivity {
                 TextView tvText = (TextView) view.findViewById(R.id.tt_text);
                 TextView tvId = (TextView) view.findViewById(R.id.tt_id);
                 Intent intent = new Intent(getApplicationContext(), ShowSingleTTActivity.class);
-                Config config = new Config();
-                intent.putExtra(config.TT_TEXT_KEY, tvText.getText().toString());
-                intent.putExtra(config.TT_ID_KEY, (int) Integer.valueOf(tvId.getText().toString()));
+                intent.putExtra(Config.TT_TEXT_KEY, tvText.getText().toString());
+                intent.putExtra(Config.TT_ID_KEY, (int) Integer.valueOf(tvId.getText().toString()));
                 startActivity(intent);
             }
         });
