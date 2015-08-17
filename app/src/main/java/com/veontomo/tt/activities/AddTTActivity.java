@@ -50,11 +50,20 @@ public class AddTTActivity extends AppCompatActivity {
      * Button to finish the current activity
      */
     private Button mBtnCancel;
+    /**
+     * id of the tongue twister in case it exists, or -1 otherwise
+     */
+    private int mId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tt);
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            this.mId = b.getInt(Config.TT_ID_KEY, -1);
+            this.mText = b.getString(Config.TT_TEXT_KEY);
+        }
     }
 
 
@@ -80,13 +89,16 @@ public class AddTTActivity extends AppCompatActivity {
         }
         this.mBtnCancel = (Button) findViewById(R.id.btnCancel);
         this.mBtnSave = (Button) findViewById(R.id.btnSave);
+        if (this.mId != -1){
+            this.mBtnSave.setText(getResources().getString(R.string.update));
+        }
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String input = mEditText.getEditableText().toString();
                 if (input != null && !input.isEmpty()) {
-                    SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext());
-                    task.execute(input);
+                    SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext(), mId, input);
+                    task.execute();
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "not valid", Toast.LENGTH_SHORT).show();

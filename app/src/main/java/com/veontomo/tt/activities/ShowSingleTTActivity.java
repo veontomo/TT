@@ -1,5 +1,6 @@
 package com.veontomo.tt.activities;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
@@ -57,27 +58,47 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (this.mId != -1) {
-            LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
-            TextView tv = (TextView) ll.findViewById(R.id.tt_text);
-            tv.setText(this.mText);
+        if (this.mId == -1) {
+            return;
         }
+        LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
+        TextView tv = (TextView) ll.findViewById(R.id.tt_text);
+        tv.setText(this.mText);
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddTTActivity.class);
+                intent.putExtra(Config.TT_ID_KEY, mId);
+                intent.putExtra(Config.TT_TEXT_KEY, mText);
+                startActivity(intent);
+            }
+        });
+
+        this.mDirName = createDir(Config.DIR_NAME + "/" + String.valueOf(this.mId));
+        if (this.mDirName == null) {
+            return;
+        }
+
         this.mPlay = (ImageButton) findViewById(R.id.imgPlay);
+        mPlay.setEnabled(false);
         this.mStop = (ImageButton) findViewById(R.id.imgStop);
+        mStop.setEnabled(false);
         this.mRecord = (ImageButton) findViewById(R.id.imgRecord);
 
         mAudioRecorder = new MediaRecorder();
         mAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        this.mDirName = createDir(Config.DIR_NAME + "/" + String.valueOf(this.mId));
-        if (this.mDirName == null) {
-            return;
-        }
 
         mRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAudioRecorder = new MediaRecorder();
+                mAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                mAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+
                 mOutputFile = mDirName + "/" + (new Date()).getTime() + ".3gp";
                 mAudioRecorder.setOutputFile(mOutputFile);
 
@@ -87,6 +108,7 @@ public class ShowSingleTTActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
                     mRecord.setEnabled(false);
                     mStop.setEnabled(true);
+                    mPlay.setEnabled(false);
                 } catch (IllegalStateException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -105,6 +127,7 @@ public class ShowSingleTTActivity extends AppCompatActivity {
 
                 mStop.setEnabled(false);
                 mPlay.setEnabled(true);
+                mRecord.setEnabled(true);
 
                 Toast.makeText(getApplicationContext(), "Audio recorded successfully", Toast.LENGTH_LONG).show();
             }
@@ -126,7 +149,12 @@ public class ShowSingleTTActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                mStop.setEnabled(false);
+                mPlay.setEnabled(false);
+                mRecord.setEnabled(false);
                 m.start();
+                mPlay.setEnabled(true);
+                mRecord.setEnabled(true);
             }
         });
     }

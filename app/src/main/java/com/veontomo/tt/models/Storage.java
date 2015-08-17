@@ -35,19 +35,19 @@ public class Storage extends SQLiteOpenHelper {
         db.execSQL(TT.CREATE_TABLE);
     }
 
-    public static abstract class TTEntry implements BaseColumns {
-        public static final String TABLE_NAME = "TongueTwisters";
-        public static final String COLUMN_TEXT = "text";
-    }
-
-
-    public static final class TT {
-        public static final String CREATE_TABLE = "CREATE TABLE " +
-                TTEntry.TABLE_NAME + " (" +
-                TTEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TTEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
-        public static final String SELECT_ALL = "SELECT " + TTEntry._ID
-                + ", " + TTEntry.COLUMN_TEXT  + " FROM " + TTEntry.TABLE_NAME + ";";
+    /**
+     * Update text of tongue-twister with given id
+     * @param id
+     * @param text
+     */
+    public void updateTT(int id, String text) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TTEntry.COLUMN_TEXT, text);
+        String selection = TTEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+        db.update(TTEntry.TABLE_NAME, values, selection, selectionArgs);
+        db.close();
     }
 
     @Override
@@ -59,6 +59,7 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Save tongue-twister in db.
+     *
      * @param text tongue-twister text
      * @return the row ID of the newly inserted row, or -1 if an error occurred
      */
@@ -89,7 +90,19 @@ public class Storage extends SQLiteOpenHelper {
         return all;
     }
 
+    public static abstract class TTEntry implements BaseColumns {
+        public static final String TABLE_NAME = "TongueTwisters";
+        public static final String COLUMN_TEXT = "text";
+    }
 
+    public static final class TT {
+        public static final String CREATE_TABLE = "CREATE TABLE " +
+                TTEntry.TABLE_NAME + " (" +
+                TTEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TTEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
+        public static final String SELECT_ALL = "SELECT " + TTEntry._ID
+                + ", " + TTEntry.COLUMN_TEXT + " FROM " + TTEntry.TABLE_NAME + ";";
+    }
 
 
 }
