@@ -44,6 +44,11 @@ public class ShowSingleTTActivity extends AppCompatActivity {
      */
     private String mDirName;
 
+    /**
+     * Text view with tongue-twister text.
+     */
+    private TextView mTTText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,17 +66,18 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         if (this.mId == -1) {
             return;
         }
+        fillInTTText(this.mText);
         LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
-        TextView tv = (TextView) ll.findViewById(R.id.tt_text);
-        tv.setText(this.mText);
+        this.mTTText = (TextView) ll.findViewById(R.id.tt_text);
+        this.mTTText.setText(this.mText);
 
-        tv.setOnClickListener(new View.OnClickListener() {
+        this.mTTText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddTTActivity.class);
                 intent.putExtra(Config.TT_ID_KEY, mId);
                 intent.putExtra(Config.TT_TEXT_KEY, mText);
-                startActivity(intent);
+                startActivityForResult(intent, Config.TT_UPDATE_REQUEST);
             }
         });
 
@@ -184,6 +190,8 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         this.mPlay = null;
         this.mStop = null;
         this.mRecord = null;
+        this.mTTText.setOnClickListener(null);
+        this.mTTText = null;
         super.onPause();
     }
 
@@ -207,6 +215,29 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Config.TT_UPDATE_REQUEST) {
+            if (resultCode == RESULT_OK && data != null) {
+                String text = data.getStringExtra(Config.TT_TEXT_KEY);
+                if (text != null) {
+                    this.mText = text;
+                    fillInTTText(text);
+                }
+            }
+        }
+    }
+
+    /**
+     * Fill in the text view with tongue-twister.
+     * @param text
+     */
+    private void fillInTTText(final String text){
+        LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
+        TextView tv = (TextView) ll.findViewById(R.id.tt_text);
+        tv.setText(text);
     }
 
 }

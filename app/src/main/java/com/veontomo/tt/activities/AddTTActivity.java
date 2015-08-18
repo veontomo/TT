@@ -51,9 +51,9 @@ public class AddTTActivity extends AppCompatActivity {
      */
     private Button mBtnCancel;
     /**
-     * id of the tongue twister in case it exists, or -1 otherwise
+     * id of the tongue twister in case it has already been saved into db, or -1 otherwise
      */
-    private int mId;
+    private int mId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +90,7 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnCancel = (Button) findViewById(R.id.btnCancel);
         this.mBtnSave = (Button) findViewById(R.id.btnSave);
         if (this.mId != -1){
+            Log.i(Config.TAG, "id = " + this.mId);
             this.mBtnSave.setText(getResources().getString(R.string.update));
         }
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +100,9 @@ public class AddTTActivity extends AppCompatActivity {
                 if (input != null && !input.isEmpty()) {
                     SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext(), mId, input);
                     task.execute();
+                    Intent intent = new Intent();
+                    intent.putExtra(Config.TT_TEXT_KEY, input);
+                    setResult(RESULT_OK, intent);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "not valid", Toast.LENGTH_SHORT).show();

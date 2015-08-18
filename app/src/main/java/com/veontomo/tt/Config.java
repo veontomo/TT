@@ -19,5 +19,9 @@ public abstract class Config {
      * Name of the directory in which audio records of the tongue-twisters are stored.
      * (for the moment this directory is supposed to be inside the external storage)
      */
-    public final static String DIR_NAME = "TongueTwisters";
+    public static final String DIR_NAME = "TongueTwisters";
+    /**
+     * Request code that is used to start activity for result in order to update tongue-twister
+     */
+    public static final int TT_UPDATE_REQUEST = 1;
 }
