@@ -49,6 +49,11 @@ public class ShowSingleTTActivity extends AppCompatActivity {
      */
     private TextView mTTText;
 
+    /**
+     * token name with which {@link #mText mText} is to be saved in the Bundle
+     */
+    private final String textToken = "text";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,13 @@ public class ShowSingleTTActivity extends AppCompatActivity {
             this.mId = b.getInt(Config.TT_ID_KEY, -1);
             this.mText = b.getString(Config.TT_TEXT_KEY);
         }
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore state members from saved instance
+        this.mText = savedInstanceState.getString(textToken);
     }
 
     @Override
@@ -192,6 +204,12 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         this.mTTText.setOnClickListener(null);
         this.mTTText = null;
         super.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(textToken, this.mText);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

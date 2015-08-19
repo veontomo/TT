@@ -41,6 +41,7 @@ public class AddTTActivity extends AppCompatActivity {
      * The value gets updated when the activity gets paused.
      */
     private int mPos;
+
     private EditText mEditText;
     /**
      * Button to save the inserted text
@@ -53,7 +54,13 @@ public class AddTTActivity extends AppCompatActivity {
     /**
      * id of the tongue twister in case it has already been saved into db, or -1 otherwise
      */
-    private int mId = -1;
+    private int mId;
+
+    /**
+     * Whether the activity deals with a new tongue-twisters or with one that has already been
+     * saved into db.
+     */
+    private boolean isNew = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,7 @@ public class AddTTActivity extends AppCompatActivity {
         if (b != null) {
             this.mId = b.getInt(Config.TT_ID_KEY, -1);
             this.mText = b.getString(Config.TT_TEXT_KEY);
+            this.isNew = this.mId <= 0;
         }
     }
 
@@ -89,7 +97,7 @@ public class AddTTActivity extends AppCompatActivity {
         }
         this.mBtnCancel = (Button) findViewById(R.id.btnCancel);
         this.mBtnSave = (Button) findViewById(R.id.btnSave);
-        if (this.mId != -1){
+        if (!this.isNew) {
             this.mBtnSave.setText(getResources().getString(R.string.update));
             setTitle(getResources().getString(R.string.editTT));
         }
@@ -100,9 +108,11 @@ public class AddTTActivity extends AppCompatActivity {
                 if (input != null && !input.isEmpty()) {
                     SaveTongueTwisterTask task = new SaveTongueTwisterTask(getApplicationContext(), mId, input);
                     task.execute();
-                    Intent intent = new Intent();
-                    intent.putExtra(Config.TT_TEXT_KEY, input);
-                    setResult(RESULT_OK, intent);
+                    if (!isNew) {
+                        Intent intent = new Intent();
+                        intent.putExtra(Config.TT_TEXT_KEY, input);
+                        setResult(RESULT_OK, intent);
+                    }
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "not valid", Toast.LENGTH_SHORT).show();
@@ -112,7 +122,10 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(Config.TAG, "click cancel");
+                if (!isNew) {
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                }
                 finish();
             }
         });
