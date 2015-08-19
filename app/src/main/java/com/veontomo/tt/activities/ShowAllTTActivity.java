@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
 import com.veontomo.tt.TTAdapter;
@@ -34,6 +35,7 @@ public class ShowAllTTActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        AppEventsLogger.activateApp(this);
         this.mListView = (ListView) findViewById(R.id.listview);
         TTAdapter adapter = new TTAdapter(getApplicationContext(), null);
         this.mListView.setAdapter(adapter);
@@ -59,6 +61,7 @@ public class ShowAllTTActivity extends AppCompatActivity {
     public void onPause() {
         this.mListView.setAdapter(null);
         this.mListView = null;
+        AppEventsLogger.deactivateApp(this);
         super.onPause();
     }
 

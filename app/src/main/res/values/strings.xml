@@ -10,4 +10,6 @@
     <string name="show_all">All tongue-twisters</string>
     <string name="update">Update</string>
     <string name="editTT">Edit tongue-twister</string>
+    <string name="facebook_app_id">1632679166996835</string>
+    <string name="fb_post">I have read the following tongue-twister</string>
 </resources>

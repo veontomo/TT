@@ -11,4 +11,6 @@
     <string name="title_activity_show_single_tt">Записать </string>
     <string name="update">Обновить</string>
     <string name="editTT">Редактировать</string>
+    <string name="facebook_app_id">1632679166996835</string>
+    <string name="fb_post">Прочитал скороговорку</string>
 </resources>

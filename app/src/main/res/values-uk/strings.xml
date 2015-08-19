@@ -11,4 +11,6 @@
     <string name="title_activity_show_single_tt">Записати</string>
     <string name="update">Поновити</string>
     <string name="editTT">Редагувати</string>
+    <string name="facebook_app_id">1632679166996835</string>
+    <string name="fb_post">Прочитав скоромовку</string>
 </resources>

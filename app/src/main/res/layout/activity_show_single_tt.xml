@@ -39,4 +39,13 @@
         android:layout_toRightOf="@id/imgPlay"
         android:src="@drawable/ic_stop_black_24dp" />
 
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/fb_share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imgPlay"
+        android:layout_toEndOf="@id/imgStop"
+        android:layout_toRightOf="@id/imgStop"
+        android:src="@drawable/ic_share_black_24dp" />
+
 </RelativeLayout>

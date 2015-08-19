@@ -11,4 +11,6 @@
     <string name="title_activity_show_single_tt">Registrare</string>
     <string name="update">Aggiorna</string>
     <string name="editTT">Modifica scioglilingua</string>
+    <string name="facebook_app_id">1632679166996835</string>
+    <string name="fb_post">Ho letto lo scioglilingua</string>
 </resources>

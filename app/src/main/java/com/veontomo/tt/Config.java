@@ -24,4 +24,9 @@ public abstract class Config {
      * Request code that is used to start activity for result in order to update tongue-twister
      */
     public static final int TT_UPDATE_REQUEST = 1;
+
+    /**
+     * Address at which the app is available at google play store
+     */
+    public static final String GOOGLE_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.veontomo.tt";
 }

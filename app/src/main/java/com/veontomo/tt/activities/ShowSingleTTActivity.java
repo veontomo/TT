@@ -3,6 +3,7 @@ package com.veontomo.tt.activities;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
 
@@ -24,35 +27,28 @@ import java.util.Date;
 public class ShowSingleTTActivity extends AppCompatActivity {
 
     /**
+     * token name with which {@link #mText mText} is to be saved in the Bundle
+     */
+    private final String textToken = "text";
+    /**
      * tongue-twister id
      */
     private int mId;
-
     /**
      * tongue-twister text
      */
     private String mText;
-
     private ImageButton mRecord, mStop, mPlay;
-
     private MediaRecorder mAudioRecorder;
-
     private String mOutputFile;
-
     /**
      * Name of the directory in which tongue-twister audio records are to be stored
      */
     private String mDirName;
-
     /**
      * Text view with tongue-twister text.
      */
     private TextView mTTText;
-
-    /**
-     * token name with which {@link #mText mText} is to be saved in the Bundle
-     */
-    private final String textToken = "text";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +71,15 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
         if (this.mId == -1) {
             return;
         }
         LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
         this.mTTText = (TextView) ll.findViewById(R.id.tt_text);
         fillInTTText(this.mText);
+
+        initializeShareButton();
 
         this.mTTText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +176,19 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     }
 
     /**
+     * Initializes the button to share the info on facebook
+     */
+    private void initializeShareButton() {
+        String text = getResources().getString(R.string.fb_post) + " " + this.mText;
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(Config.GOOGLE_PLAY_STORE))
+                .setContentDescription(text)
+                .build();
+        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
+    }
+
+    /**
      * Creates (if it does not exist) a directory with given name in the external storage and
      * returns absolute path to it.
      *
@@ -210,6 +222,11 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putString(textToken, this.mText);
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void onStop() {
+        this.mText = null;
+        super.onStop();
     }
 
     @Override
@@ -249,9 +266,10 @@ public class ShowSingleTTActivity extends AppCompatActivity {
 
     /**
      * Fill in the text view with tongue-twister.
+     *
      * @param text
      */
-    private void fillInTTText(final String text){
+    private void fillInTTText(final String text) {
         LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
         TextView tv = (TextView) ll.findViewById(R.id.tt_text);
         tv.setText(text);
