@@ -8,8 +8,7 @@
     <string name="save">Сохранить</string>
     <string name="title_activity_show_all_tt">Скороговорки</string>
     <string name="show_all">Все скороговорки</string>
-    <string name="drawer_open">open</string>
-    <string name="drawer_close">close</string>
     <string name="title_activity_show_single_tt">Записать </string>
     <string name="update">Обновить</string>
+    <string name="editTT">Редактировать</string>
 </resources>

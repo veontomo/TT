@@ -8,8 +8,7 @@
     <string name="add_tt_title">Нова скоромовка</string>
     <string name="title_activity_show_all_tt">Скоромовки</string>
     <string name="show_all">Усі скоромовки</string>
-    <string name="drawer_open">open</string>
-    <string name="drawer_close">close</string>
     <string name="title_activity_show_single_tt">Записати</string>
     <string name="update">Поновити</string>
+    <string name="editTT">Редагувати</string>
 </resources>

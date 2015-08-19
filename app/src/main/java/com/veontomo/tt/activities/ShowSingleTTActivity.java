@@ -66,10 +66,9 @@ public class ShowSingleTTActivity extends AppCompatActivity {
         if (this.mId == -1) {
             return;
         }
-        fillInTTText(this.mText);
         LinearLayout ll = (LinearLayout) findViewById(R.id.tt_layout);
         this.mTTText = (TextView) ll.findViewById(R.id.tt_text);
-        this.mTTText.setText(this.mText);
+        fillInTTText(this.mText);
 
         this.mTTText.setOnClickListener(new View.OnClickListener() {
             @Override

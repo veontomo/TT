@@ -90,8 +90,8 @@ public class AddTTActivity extends AppCompatActivity {
         this.mBtnCancel = (Button) findViewById(R.id.btnCancel);
         this.mBtnSave = (Button) findViewById(R.id.btnSave);
         if (this.mId != -1){
-            Log.i(Config.TAG, "id = " + this.mId);
             this.mBtnSave.setText(getResources().getString(R.string.update));
+            setTitle(getResources().getString(R.string.editTT));
         }
         this.mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,8 +8,7 @@
     <string name="title_activity_add_tt">Aggiungi</string>
     <string name="title_activity_show_all_tt">Tutti gli scioglilingua</string>
     <string name="show_all">Tutti gli scioglilingua</string>
-    <string name="drawer_open">open</string>
-    <string name="drawer_close">close</string>
     <string name="title_activity_show_single_tt">Registrare</string>
     <string name="update">Aggiorna</string>
+    <string name="editTT">Modifica scioglilingua</string>
 </resources>
