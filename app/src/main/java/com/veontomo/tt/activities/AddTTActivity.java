@@ -54,7 +54,7 @@ public class AddTTActivity extends AppCompatActivity {
     /**
      * id of the tongue twister in case it has already been saved into db, or -1 otherwise
      */
-    private int mId;
+    private int mId = -1;
 
     /**
      * Whether the activity deals with a new tongue-twisters or with one that has already been

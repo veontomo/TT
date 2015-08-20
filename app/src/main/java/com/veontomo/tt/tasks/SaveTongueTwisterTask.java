@@ -19,6 +19,7 @@ public class SaveTongueTwisterTask extends AsyncTask<Void, Void, Void> {
         this.mContext = context;
         this.mId = id;
         this.mText = text;
+        Log.i(Config.TAG, "saving proverb: id = " + id + ", text = " + text);
     }
 
     @Override

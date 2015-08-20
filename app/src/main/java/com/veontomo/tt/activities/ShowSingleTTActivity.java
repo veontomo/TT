@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.widget.ShareButton;
 import com.veontomo.tt.Config;
 import com.veontomo.tt.R;
@@ -30,6 +34,11 @@ public class ShowSingleTTActivity extends AppCompatActivity {
      * token name with which {@link #mText mText} is to be saved in the Bundle
      */
     private final String textToken = "text";
+    /**
+     * token name with which id of the tongue-twister is to be saved in the Bundle
+     */
+    private final String idToken = "id";
+
     /**
      * tongue-twister id
      */
@@ -54,6 +63,7 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_single_tt);
+        Log.i(Config.TAG, "on Create: savedInstanceState is null?" + (savedInstanceState == null));
         Bundle b = getIntent().getExtras();
         if (b != null) {
             this.mId = b.getInt(Config.TT_ID_KEY, -1);
@@ -63,15 +73,16 @@ public class ShowSingleTTActivity extends AppCompatActivity {
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         // Restore state members from saved instance
         this.mText = savedInstanceState.getString(textToken);
+        this.mId = savedInstanceState.getInt(idToken);
+        Log.i(Config.TAG, "on restore " + this.mText);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.i(Config.TAG, "on Resume");
         if (this.mId == -1) {
             return;
         }
@@ -179,12 +190,33 @@ public class ShowSingleTTActivity extends AppCompatActivity {
      * Initializes the button to share the info on facebook
      */
     private void initializeShareButton() {
-        String text = getResources().getString(R.string.fb_post) + " " + this.mText;
         ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentTitle(getResources().getString(R.string.fb_post))
                 .setContentUrl(Uri.parse(Config.GOOGLE_PLAY_STORE))
-                .setContentDescription(text)
+                .setContentDescription(this.mText)
                 .build();
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        ShareButton shareButton = (ShareButton) findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
+    }
+
+    private void initializeShareButton2() {
+        // Create an object
+        ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
+                .putString("og:type", "article")
+                .putString("og:title", "Tongue-twister: " + this.mText)
+                .putString("og:url", Config.GOOGLE_PLAY_STORE)
+                .build();
+        // Create an action
+        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+                .putObject("article", object)
+                .build();
+
+        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+                .setPreviewPropertyName("article")
+                .setAction(action)
+                .build();
+
+        ShareButton shareButton = (ShareButton) findViewById(R.id.fb_share_button);
         shareButton.setShareContent(content);
     }
 
@@ -206,6 +238,7 @@ public class ShowSingleTTActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
+        Log.i(Config.TAG, "on Pause " + this.mText);
         mRecord.setOnClickListener(null);
         mStop.setOnClickListener(null);
         mPlay.setOnClickListener(null);
@@ -221,12 +254,20 @@ public class ShowSingleTTActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putString(textToken, this.mText);
+        savedInstanceState.putInt(idToken, this.mId);
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    @Override
     public void onStop() {
-        this.mText = null;
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy(){
+        this.mText = null;
+        this.mId = -1;
+        super.onDestroy();
     }
 
     @Override

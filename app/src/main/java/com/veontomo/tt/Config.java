@@ -28,5 +28,5 @@ public abstract class Config {
     /**
      * Address at which the app is available at google play store
      */
-    public static final String GOOGLE_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.veontomo.tt";
+    public static final String GOOGLE_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.veontomo.itaproverb";
 }
